@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             'name'  => 'Test Author',
             'email' => 'author@example.com',
             'role'  => 'author',
+            'password'=>'password',
         ]);
 
         // Shared pools — created once, reused across posts
