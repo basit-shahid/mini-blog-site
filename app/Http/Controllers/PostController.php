@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\Tag;
 
 class PostController extends Controller
 {

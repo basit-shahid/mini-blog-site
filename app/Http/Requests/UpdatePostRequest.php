@@ -12,7 +12,7 @@ class UpdatePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,14 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'       => ['required', 'string', 'max:255'],
+            'category_id' => ['required', 'exists:categories,id'],
+            'series_id'   => ['nullable', 'exists:series,id'],
+            'excerpt'     => ['nullable', 'string'],
+            'content'     => ['required', 'string'],
+            'status'      => ['required', 'in:draft,published,archived'],
+            'tags'        => ['array'],
+            'tags.*'      => ['exists:tags,id'],
         ];
     }
 }
