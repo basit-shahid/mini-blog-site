@@ -5,11 +5,12 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('posts', PostController::class)->except(['index', 'show']);
 });
+
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

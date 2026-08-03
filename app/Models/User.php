@@ -22,6 +22,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'github_url',
+        'bio',
     ];
 
     /**
@@ -45,5 +48,29 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * A user can have many posts.
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Is this user an administrator?
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Is this user allowed to author content (admin or author role)?
+     */
+    public function isAuthor(): bool
+    {
+        return in_array($this->role, ['admin', 'author']);
     }
 }

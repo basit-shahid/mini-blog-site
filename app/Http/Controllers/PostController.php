@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Series;
 
 class PostController extends Controller
 {
@@ -28,6 +29,7 @@ class PostController extends Controller
         return view('posts.create', [
             'categories' => Category::all(),
             'tags'       => Tag::all(),
+            'series'      =>Series::all(),
         ]);
     }
 
