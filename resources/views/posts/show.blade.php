@@ -5,7 +5,7 @@
                 <div class="text-sm text-gray-500 mb-4">
                     {{ $post->category->name }}
                     &middot;
-                    {{ $post->published_at->format('M d, Y') }}
+                    {{ $post->published_at ? $post->published_at->format('M d, Y') : 'Draft' }}
                     &middot;
                     {{ $post->reading_time }} min read
                     &middot;
