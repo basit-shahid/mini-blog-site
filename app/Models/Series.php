@@ -12,7 +12,7 @@ class Series extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
+        'title',
         'slug',
         'description',
     ];
@@ -49,8 +49,8 @@ class Series extends Model
     protected static function booted(): void
     {
         static::creating(function (Series $series) {
-            // Fixed: Uses $series->name instead of $series->title
-            $series->slug = $series->slug ?: Str::slug($series->name);
+            // Generates a slug from the title on creation if slug is not manually set
+            $series->slug = $series->slug ?: Str::slug($series->title);
         });
     }
 }

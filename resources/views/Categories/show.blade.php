@@ -4,33 +4,19 @@
 
             <div class="flex items-center justify-between mb-6">
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Latest Posts
+                    Posts in {{ $category->name }}
                 </h2>
-
-                @can('create', App\Models\Post::class)
-                    <a href="{{ route('posts.create') }}"
-                        class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition shrink-0">
-                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Create Post
-                    </a>
-                @endcan
             </div>
 
             @if ($posts->isEmpty())
                 <div class="bg-white p-8 rounded-lg shadow text-center text-gray-500">
-                    No posts published yet.
+                    No posts published yet in this category.
                 </div>
             @else
                 <div class="space-y-6">
                     @foreach ($posts as $post)
                         <article class="bg-white p-6 rounded-lg shadow">
                             <div class="text-sm text-gray-500 mb-2">
-                                <a href="{{ route('categories.show', $post->category) }}" class="text-indigo-600 hover:text-indigo-800">
-                                    {{ $post->category->name }}
-                                </a>
-                                &middot;
                                 {{ $post->published_at->format('M d, Y') }}
                                 &middot;
                                 {{ $post->reading_time }} min read
@@ -50,18 +36,18 @@
                                 <div class="text-sm text-gray-500">
                                     by {{ $post->user->name }}
                                 </div>
-                                
+
                                 <div class="flex gap-2">
                                     <a href="{{ route('posts.show', $post) }}" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-xs font-medium text-gray-700 hover:bg-gray-50 transition shadow-sm">
                                         View
                                     </a>
-                                    
+
                                     @can('update', $post)
                                         <a href="{{ route('posts.edit', $post) }}" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-300 rounded-md text-xs font-medium text-gray-700 hover:bg-gray-50 transition shadow-sm">
                                             Edit
                                         </a>
                                     @endcan
-                                    
+
                                     @can('delete', $post)
                                         <form method="POST" action="{{ route('posts.destroy', $post) }}" onsubmit="return confirm('Are you sure you want to delete this post?');">
                                             @csrf

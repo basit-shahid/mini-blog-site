@@ -31,10 +31,26 @@
                 @endif
             </article>
 
-            <div class="mt-6">
+            <div class="mt-6 flex items-center justify-between">
                 <a href="{{ route('home') }}" class="text-sm text-indigo-600 hover:text-indigo-800">
                     &larr; Back to all posts
                 </a>
+                
+                <div class="flex gap-3">
+                    @can('update', $post)
+                        <a href="{{ route('posts.edit', $post) }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition shadow-sm">
+                            Edit Post
+                        </a>
+                    @endcan
+                    
+                    @can('delete', $post)
+                        <form method="POST" action="{{ route('posts.destroy', $post) }}" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-50 border border-red-200 rounded-lg text-sm font-medium text-red-600 hover:bg-red-100 transition shadow-sm">Delete Post</button>
+                        </form>
+                    @endcan
+                </div>
             </div>
         </div>
     </div>
